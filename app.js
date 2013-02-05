@@ -20,10 +20,10 @@ apiServer.use(authenticate.simpleStub);
 //apiServer.use(authenticate.validateSignature);
 apiServer.use(authorize.simpleStub);
 //apiServer.use(authorize.authorizeRequest);
-//apiServer.use(authorize.isAdmin);
 
 //Routes 
 require('./routes/utils')(apiServer);
+require('./routes/tail')(apiServer);
 
 //Post-Routing Functions (Audit)
 /*
