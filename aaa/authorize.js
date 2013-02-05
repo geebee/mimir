@@ -1,9 +1,3 @@
-require('../db/init');
-var userModel = require('../db/models/user'); 
-var User = db.model('user', userModel.UserSchema);
-var groupModel = require('../db/models/group'); 
-var Group = db.model('Group', groupModel.GroupSchema);
-
 module.exports.simpleStub = function (req, res, next) {
     console.log('about to authorize (stub method)');
     return next();
@@ -13,7 +7,7 @@ module.exports.authorizeRequest = function (req, res, next) {
     console.log('user: %s, verb: %s, route: %s', req.username, req.method, req.path);
     
     //Whitelist of Permissions (in the form of: {"path": "/", "method": "GET"}) that never require authorization
-    var whitelistURLs = [{"path": "/", "method": "GET"}, {"path": "/test", "method": "GET"}];
+    var whitelistURLs = [{"path": "/", "method": "GET"}, {"path": "/tail", "method": "GET"}, {"path": "/tail/f", "method": "GET"}, {"path": "/test", "method": "GET"}];
     
     //Just in case someone manages to inject this flag into the request from the client side,
     //we will always delete it from the request object at the start of this function.
@@ -39,64 +33,8 @@ module.exports.authorizeRequest = function (req, res, next) {
         }
     });
 
-    User.findOne({"displayName": req.username}, function(err, user) {
-        if (err) { //TODO: Handle the error for real
-            console.log("Error Retrieving User: " + err);
-            //TODO: Don't retardedly concatenate to an empty string
-            res.send({error: "" + err});
-        } else {
-            if (!user || user === undefined) {
-                console.log("User not found. Issuing 401");
-                return res.send(401);
-            }
-            if (!user.groups || user.groups === undefined) {
-                console.log("User has no groups. Issuing 401");
-                return res.send(401);
-            }
-
-            console.log("user.groups:%j", user.groups);
-            user.groups.some(function(group) {
-                console.log("Group Name: %s", group);
-                Group.findOne({"name": group}, function(err, group) {
-                    if (err) { //TODO: Handle the error for real
-                        console.log("Error Retrieving Group: " + err);
-                        //TODO: Don't retardedly concatenate to an empty string
-                        res.send({error: "" + err});
-                    } else {
-                        if (!group || group === undefined) {
-                            console.log("Group not found. Issuing 401");
-                            return res.send(401);
-                        }
-                        if (!group.permissions || group.permissions === undefined) {
-                            console.log("Group has no permissions. Issuing 401");
-                            return res.send(401);
-                        }
-                        var permissionGranted = group.permissions.some(function(permission) {
-                            console.log("Permission: %j", permission);
-                            if ((permission.method === req.method) && (permission.path === endpointPath[0])) {
-                                /* TODO: Addition of 'owning' a route here
-                                if (permission._userId) {
-                                    if (permission._userId === req.username) {)
-                                    }
-                                }
-                                */
-                                console.log("Authorization succeeded. Permission: (%s for %s) allowed for group: %s.", req.method, req.path, group.name);
-                                req.isAuthorized = true;
-                                next();
-                                return true;
-                            }
-                        });
-
-                        if (permissionGranted === false) {
-                            req.isAuthorized = false;
-                            console.log("Authorization Failed. Passing along for admin check");
-                            return next();
-                        }
-                    }
-                });
-            });
-        }
-    });
+    console.log("Not a whitelisted URL, and no other authorization is set up, sending a 401");
+    res.send(401);
 };
 
 module.exports.isAdmin = function (req, res, next) {

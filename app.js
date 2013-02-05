@@ -24,9 +24,6 @@ apiServer.use(authorize.simpleStub);
 
 //Routes 
 require('./routes/utils')(apiServer);
-require('./routes/conf')(apiServer);
-require('./routes/users')(apiServer);
-require('./routes/groups')(apiServer);
 
 //Post-Routing Functions (Audit)
 /*

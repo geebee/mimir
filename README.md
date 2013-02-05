@@ -95,37 +95,4 @@ _Note: several non-required parameters are ommitted from these examples_
     		}  
           }' http://localhost:9999/tail/f
           
-  - Etcetera..
-
-###Users
- - `http://localhost:8888/users` (`GET` - lists the users)
- - `http://localhost:8888/users/<user id>` (`GET` - returns a single user by ID)
- - `http://localhost:8888/users` (POST - Creates a user and returns its ID)
-  - Use the following CURL command (or an equivalent) to `POST`:
-  
-        curl -v -H "Content-Type: application/json" -X POST -d '{
-		    "_phoneId": "1",
-		    "displayName": "aUser",
-            "access": {
-                "id": "1234567890",
-                "key": "039hrnqoehn30hqj3r0qpfin0fq3fnaeofna30j=="
-            },
-		    "address": {
-		        "line1": "123 Fake Street",
-		        "line2": "Apt 1",
-		        "city": "Any City",
-		        "stateOrProvince": "Ontario",
-		        "zipOrPostalCode": "M6C 1Y5",
-		        "latitude": 43.698905,
-		        "longitude": -79.424963
-		    },
-		    "phoneNumber": "(416) 555-0123",
-		    "dateJoined": "2012-09-01 00:00:00",
-		    "lastLogin": "2012-09-01",
-		    "lastActivity": "2012-09-01 00:00:00",
-		    "createdBy": "curlRequest",
-		    "createdDate": "2012-09-01 00:00:00",
-		    "modifiedBy": "curlRequest",
-		    "modifiedDate": "2012-09-01 00:00:00",
-		    "version": 1
-	    }' http://localhost:9999/users
+  - Etcetera...
