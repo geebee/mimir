@@ -1,4 +1,4 @@
-var utilHandler = require("../handlers/tailHandler");
+var tailHandler = require("../handlers/tailHandler");
 
 module.exports = function(apiServer){
     apiServer.get('/tail', tailHandler.regular);
