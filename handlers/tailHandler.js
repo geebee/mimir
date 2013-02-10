@@ -1,36 +1,5 @@
 var spawn = require("child_process").spawn;
 
-exports.regular= function(req, res, next) {
-  console.log("handler 'regular tail'");
-
-  var tailFile = "/tmp/test.txt"
-  var tail = spawn("tail", [tailFile]);
-  console.log("starting the tail");
-
-  tail.stdout.setEncoding("utf8"); //Ensures output is string and not a Buffer object
-  tail.stdout.on("data", function(data) {
-    console.log("tail process wrote to stdout");
-    console.log(data);
-    res.contentType = "text";
-    res.send(data);
-  });
-
-  tail.stderr.setEncoding("utf8"); //Ensures output is string and not a Buffer object
-  tail.stderr.on("data", function(data) {
-    console.log("tail process wrote to stderr unexpectedly. text was:\n-----\n%s\n-----", data);
-    res.send({"error": "tail process wrote to stderr unexpectedly", "stderr": data});
-  });
-
-  tail.on("exit", function(code) {
-    console.log("tail process exited");
-    if (code !== 0){
-      console.log("tail process did not exit cleanly. code was: %s", code);
-      res.send({"error": "tail process did not exit cleanly", "exitCode": code});
-    }
-  });
-
-};
-
 exports.stream = function(req, res, next) {
   console.log("handler 'streaming tail'");
 

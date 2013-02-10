@@ -1,6 +1,5 @@
 exports.index = function(req, res, next) {
     console.log("handler 'index'");
-
     res.send({information: "index page"});
 };
 
