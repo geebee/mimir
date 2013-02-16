@@ -28,7 +28,7 @@
   "server"
     ],
   "dependencies" : {
-    "restify" : "https://github.com/geebee/node-restify/tarball/master",
+    "restify" : "https://github.com/mcavage/node-restify/tarball/master",
     "toobusy" : "*"
   },
   "license": "MIT",
