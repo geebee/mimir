@@ -21,7 +21,7 @@ exports.command = function(req, res, next) {
   }
   */
   console.log("handler 'generic command'. '%s' passed", req.params.command );
-  console.log("req.params:\n%s", req.params);
+  console.log("req.params:\n%s", JSON.stringify(req.params));
   if (!allowedCommands[req.params.command]){
     console.log("'%s', was not in the whitelist, returning 403", req.params.command);
     res.send(403, {"error": "'" + req.params.command + "' is not in the whitelist", "whitelist": Object.keys(allowedCommands)});
@@ -44,14 +44,14 @@ exports.command = function(req, res, next) {
   command.stderr.setEncoding("utf8"); //Ensures output is string and not a Buffer object
   command.stderr.on("data", function(data) {
     console.log("'%s' process wrote to stderr. text was:\n-----\n%s\n-----", req.params.command, data);
-    res.send({"error": "'" + req.params.command + "' process wrote to stderr", "stderr": data});
+    res.send(400, {"error": "'" + req.params.command + "' process wrote to stderr", "stderr": data});
   });
 
   command.on("exit", function(code) {
     console.log("'%s' process exited", req.params.command);
     if (code !== 0){
       console.log("'%s' process did not exit cleanly. code was: %s", req.params.command, code);
-      res.send({"error": "'" + req.params.command + "' process did not exit cleanly", "exitCode": code});
+      res.send(500, {"error": "'" + req.params.command + "' process did not exit cleanly", "exitCode": code});
     }
   });
 

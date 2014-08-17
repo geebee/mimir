@@ -8,5 +8,6 @@ module.exports = function(apiServer){
   
   // Generic 'command' route
   apiServer.get('/cmd/:command', commandHandler.command);
+  apiServer.post('/cmd/:command', commandHandler.command);
 
 };

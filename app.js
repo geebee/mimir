@@ -10,7 +10,7 @@ var apiServer = restify.createServer({
 //Restify Options
 apiServer.use(restify.acceptParser(apiServer.acceptable));
 apiServer.use(restify.queryParser({ mapParams: true}));
-apiServer.use(restify.bodyParser({ mapParams: true, requestBodyOnGet: true}));
+apiServer.use(restify.bodyParser({ mapParams: true, requestBodyOnGet: false }));
 apiServer.use(restify.authorizationParser());
 
 var toobusy = require("toobusy");
