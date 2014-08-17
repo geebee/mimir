@@ -1,5 +1,3 @@
-#DO NOT EXPECT FUTURE UPDATES TO THIS PROJECT
-
 mimir - README
 -----
 	This project will serve as a set of RESTful web services endpoints that will allow a consuming system to preform various system administrative and monitoring functionality.
@@ -11,14 +9,6 @@ mimir - README
 ###How To Run:
  - Prerequisites: node.js (installed)
   	1. Run the command: "node app.js"
-
-**RUN JSLint!:**
-
-    for f in $(find ./node -name "*.js" -print | grep -v node_modules); do echo "Using: $f" && cat $f | ./jslint; done
-
-To generate the TODO list from the source, use:
-
-    rm Source_TODO; for f in $(find . -name "*.js" -print | grep -v node_modules); do grep -Hn TODO $f >> "Source_TODO; done
 
 
 ####Standard JSON Object
@@ -54,7 +44,7 @@ As a brief aside prior to giving the command, Roy Fielding (author of the HTTP s
 > ….Roy (from: http://tech.groups.yahoo.com/group/rest-discuss/message/9962)
 >
 
-For now, I've still just decided to do it like this anyways, as I like the robustness of the JSON object for specifiying the parameters generically across the whole API. I also like the 'cleanliness' and avoidance of the 255 character limit of not passing the whole JSON object as a request parameter. This whole scheme is open for later thought and change...
+For now, I've still just decided to do it like this anyways, as I like the robustness of the JSON object for specifiying the parameters generically across the whole API. I also like the 'cleanliness' and avoidance of the URL character limit of not passing the whole JSON object as a request parameter. This whole scheme is open for later thought and change...
 
 -----
 
@@ -97,4 +87,4 @@ _Note: several non-required parameters are ommitted from these examples_
     		}
           }' http://localhost:9999/tail/f
 
-  - Etcetera...
+  - Etc...
