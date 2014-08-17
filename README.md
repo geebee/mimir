@@ -1,3 +1,5 @@
+##### Please note that while I still hope to return to this project some day, I'm not convinced anymore that this is the best method to acheive the stated goals (Node web servers may be too heavy unless you're already working within a node environment). I haven't had time to work on it in quite a while, and am not sure when/if I'll return. The repo continues to exist for posterity, and documentation of the idea.
+
 mimir - README
 -----
 	This project will serve as a set of RESTful web services endpoints that will allow a consuming system to preform various system administrative and monitoring functionality.
